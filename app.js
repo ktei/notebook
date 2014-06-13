@@ -2,9 +2,7 @@ process.env.NODE_ENV= 'development';
 console.log(process.env.NODE_ENV);
 
 var express = require('express')
-// , routes = require('./routes')
-// , user = require('./routes/user')
-// , account = require('./routes/account')
+, flash = require('express-flash')
 , routes = require('./bootstrap/routes')
 , http = require('http')
 , path = require('path')
@@ -24,6 +22,7 @@ app.configure(function() {
 	app.use(express.methodOverride());
 	app.use(express.cookieParser('km5jpVEi'));
 	app.use(express.session());
+	app.use(flash());
 
 	app.use(function(req, res, next) {
 	    req.db = db;

@@ -16,7 +16,7 @@ var len = 128;
  * Iterations. ~300ms
  */
 
-var iterations = 12000;
+var iterations = 5000;
 
 /**
  * Hashes a password with optional `salt`, otherwise

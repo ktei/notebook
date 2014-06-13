@@ -1,0 +1,9 @@
+extends ../layout
+
+block content
+	h1 Create Folder
+	form(role='form', method='POST', action='/folders')
+		.form-group
+			label(for='name') Name
+			input.form-control(type='text', name='name', placeholder='Give me a name')
+		button.btn.btn-primary(type='submit') Create

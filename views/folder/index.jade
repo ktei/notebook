@@ -1,0 +1,7 @@
+extends ../layout
+
+block content
+	h1 Folders
+	.list-group
+		each folder in folders
+			a.list-group-item(href='/folders/' + folder._id)= folder.name

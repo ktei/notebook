@@ -13,7 +13,7 @@ exports.loginPost = function(req, res) {
 				res.redirect(returnUrl);
 			});
 		} else {
-			console.log(err);
+			req.flash('error', 'Access deined! Check your username and password please.');
 			res.redirect('/login');
 		}
 	});

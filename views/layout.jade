@@ -19,13 +19,15 @@ html
 						span.icon-bar
 						span.icon-bar
 						span.icon-bar
-					a.navbar-brand(href='#') notebook
+					a.navbar-brand(href='/') notebook
 				.collapse.navbar-collapse
 					ul.nav.navbar-nav
 						
 					ul.nav.navbar-nav.navbar-right
 						if authenticted
-							li.pull-right
+							li
 								a(href='/logout') Logout
 		.container
+			- if (messages.error)
+				.alert.alert-danger= messages.error
 			block content
