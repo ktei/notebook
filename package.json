@@ -3,7 +3,7 @@
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
-		"start": "node_modules/.bin/supervisor NODE_ENV=development app.js"
+		"start": "node_modules/.bin/supervisor app.js"
 	},
 	"dependencies": {
 		"express": "3.0.0",
