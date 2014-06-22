@@ -1,0 +1,11 @@
+form(role='form', method='POST')
+  .form-group
+    label(for='title') Title
+    input.form-control(type='text', id='title', name='title',
+      placeholder='Title', value='#{title}' autofocus, required)
+  .form-group
+    label(for='content') Content
+    textarea.form-control.item(id='content', name='content',
+      data-provide="markdown", required) #{content}
+  .form-group
+    button.btn.btn-primary(type='submit') Save

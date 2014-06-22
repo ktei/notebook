@@ -8,10 +8,12 @@ exports.setup = function(app) {
 	app.get('/', restrict, home.index);
 	app.get('/tabs/:id', restrict, home.index);
 	app.post('/tabs', restrict, tab.store);
-	app.get('/tabs/:id/items/create', restrict, item.create);
-	app.post('/tabs/:id/items/create', restrict, item.store);
+	app.get('/tabs/:tabId/items/create', restrict, item.create);
+	app.post('/tabs/:tabId/items/create', restrict, item.store);
+	app.get('/tabs/:tabId/items/:id', restrict, item.edit);
+	app.post('/tabs/:tabId/items/:id', restrict, item.update);
 	app.get('/api/tabs', restrict, tab.fetchAll);
-	app.get('/api/tabs/:id/items', restrict, item.fetchForTab);
+	app.get('/api/tabs/:tabId/items', restrict, item.fetchForTab);
 
 
 	app.get('/folders/:id', restrict, folder.show);

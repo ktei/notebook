@@ -3,8 +3,8 @@ extends ../layout
 block content
   h1 Welcome
   div(data-bind="visible: status() == 'loading'", style='display:none')
-    p Loading...
-  div(data-bind="visible: status() == 'idle'", style='display:none')
+    include ../shared/spinner
+  div(data-bind="visible: status() != 'loading'", style='display:none')
     div(data-bind='visible: tabs().length > 0', style='display:none')
       ul.nav.nav-tabs(data-bind='foreach: tabs')
         li(data-bind='css: { active: active() }')
@@ -13,10 +13,13 @@ block content
         a.btn.btn-primary(href='#', data-bind='click: addItem') + Item
         br
         br
-        .list-group(data-bind='foreach: items')
-          a.list-group-item(href='#')
-            h4.list-group-item-heading(data-bind='text: title')
-            p.list-group-item-text(data-bind='html: html')
+        div(data-bind="visible: status() == 'loading items'", style='display:none')
+          include ../shared/spinner
+        div(data-bind="visible: status() == 'idle'", style='display:none')
+          .list-group(data-bind='foreach: items')
+            a.list-group-item(href='#', data-bind='click: edit')
+              h4.list-group-item-heading(data-bind='text: title')
+              p.list-group-item-text(data-bind='html: html')
 
     .panel.panel-info(data-bind='visible: tabs().length == 0', style='display:none')
       .panel-heading

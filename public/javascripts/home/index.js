@@ -25,9 +25,25 @@ define(['require', 'jquery', 'knockout', 'markdown'], function(require) {
       self.items.removeAll();
       ko.utils.arrayForEach(items, function(item) {
         self.items.push($.extend(item, {
-            html: markdown.toHTML(item.content)
+            html: markdown.toHTML(item.content),
+            edit: function() {
+              window.location.href = '/tabs/' + self.activeTab.id + '/items/' + item._id;
+            }
           })
         );
+      });
+    };
+    this._fetchItems = function(tabId) {
+      self.status('loading items');
+      $.getJSON('/api/tabs/' + tabId + '/items', function(res) {
+        if (res.success) {
+          self._loadItems(res.data);
+        } else {
+          alert(res.message);
+        }
+      })
+      .always(function() {
+        self.status('idle');
       });
     };
     this.activate = function(tab) {
@@ -39,13 +55,7 @@ define(['require', 'jquery', 'knockout', 'markdown'], function(require) {
       tab.activate();
       if (!tab.isButton) {
         self.activeTab = tab;
-        $.getJSON('/api/tabs/' + tab.id + '/items', function(res) {
-          if (res.success) {
-            self._loadItems(res.data);
-          } else {
-            alert(res.message);
-          }
-        });
+        self._fetchItems(tab.id);
       }
     };
     this.addItem = function() {
