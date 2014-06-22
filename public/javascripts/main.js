@@ -1,7 +1,9 @@
 requirejs.config({
 	paths: {
+		'home': '../javascripts/home',
 		'jquery': '../jquery/jquery',
-		'bootstrap': '../bootstrap/dist/js/bootstrap.min',
+		'knockout': '../knockoutjs/dist/knockout',
+		'bootstrap': '../bootstrap/dist/js/bootstrap.min'
 	},
     shim: {
     	'bootstrap': ['jquery']
@@ -9,5 +11,10 @@ requirejs.config({
 });
 
 requirejs(['require', 'jquery', 'bootstrap'], function(require) {
-	
+	var $ = require('jquery');
+	$(function() {
+		$('.modal').on('shown.bs.modal', function() {
+			$(this).find('[autofocus]').focus();
+		});
+	});
 });

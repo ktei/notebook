@@ -15,21 +15,21 @@ exports.list = function(req, res) {
 exports.show = function(req, res) {
 	async.series(
 		{
-		    folder: function(callback) {
-		    	var collection = req.db.collection('folders');
-		        collection.findOne({ _id: new ObjectId(req.params.id) }, function(err, item) {
-		        	callback(null, item);
-		        });
-		    },
-		    notes: function(callback) {
-		    	var collection = req.db.collection('notes');
-		    	collection.find().toArray(function(err, items) {
-		    		callback(null, items);
-		    	});
-		    }
+			folder: function(callback) {
+				var collection = req.db.collection('folders');
+				collection.findOne({ _id: new ObjectId(req.params.id) }, function(err, item) {
+					callback(null, item);
+				});
+			},
+			notes: function(callback) {
+				var collection = req.db.collection('notes');
+				collection.find().toArray(function(err, items) {
+					callback(null, items);
+				});
+			}
 		},
 		function(err, results) {
-		    res.render('folder/show', { folder: results.folder, notes: results.notes });
+			res.render('folder/show', { folder: results.folder, notes: results.notes });
 		}
 	);
 };

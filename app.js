@@ -25,12 +25,27 @@ app.configure(function() {
 	app.use(flash());
 
 	app.use(function(req, res, next) {
-	    req.db = db;
-	    if (req.session.user) {
+		req.db = db;
+		if (req.session.user) {
 			res.locals.user = req.session.user;
 			res.locals.authenticted = true;
 		}
-	    next();
+		next();
+	});
+	app.use(function(req, res, next) {
+		res.jsonSuccess = function(data) {
+			return res.json({
+				'success': true,
+				'data': data
+			});
+		};
+		res.jsonError = function(message) {
+			return res.json({
+				'success': false,
+				'message': message ? message : 'Internal server error'
+			});
+		};
+		next();
 	});
 
 	app.use(app.router);
@@ -56,10 +71,9 @@ MongoClient.connect(app.get('db_conn_str'), function(err, database) {
 		throw err;
 	}
 	db = database;
-	
-  	// Start the application after the database connection is ready
+
+	// Start the application after the database connection is ready
 	http.createServer(app).listen(app.get('port'), function() {
 		console.log("Express server listening on port " + app.get('port'));
 	});
 });
-

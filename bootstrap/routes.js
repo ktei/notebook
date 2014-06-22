@@ -1,8 +1,15 @@
-var folder = require('../routes/folder')
-, account = require('../routes/account');
+var home = require('../controllers/home')
+, tab = require('../controllers/tab')
+, item = require('../controllers/item')
+, folder = require('../controllers/folder')
+, account = require('../controllers/account');
 
 exports.setup = function(app) {
-	app.get('/', restrict, folder.list);
+	app.get('/', restrict, home.index);
+	app.post('/tabs', restrict, tab.store);
+	app.get('/api/tabs', restrict, tab.fetchAll);
+	app.get('/api/tabs/:id/items', restrict, item.fetchForTab)
+
 	app.get('/folders/:id', restrict, folder.show);
 	app.get('/folders/create', restrict, folder.create);
 	app.get('/folders', restrict, folder.list);

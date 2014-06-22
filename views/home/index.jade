@@ -1,0 +1,51 @@
+extends ../layout
+
+block content
+  h1 Welcome
+  div(data-bind="visible: status() == 'loading'", style='display:none')
+    p Loading...
+  div(data-bind="visible: status() == 'idle'", style='display:none')
+    div(data-bind='visible: tabs().length > 0', style='display:none')
+      ul.nav.nav-tabs(data-bind='foreach: tabs')
+        li(data-bind='css: { active: active() }')
+          a(href='#', data-bind='text: name, click: $parent.activate')
+      br
+      .list-group(data-bind='foreach: items')
+        a.list-group-item(href='#', data-bind='text: name')
+
+    .panel.panel-info(data-bind='visible: tabs().length == 0', style='display:none')
+      .panel-heading
+        h3.panel-title Nothing is there yet : (
+      .panel-body
+        p
+          |There's nothing to show at the moment because you haven not
+          |created any note. To begin with, create a tab first and then
+          |you'll know what to do next.
+        a.btn.btn-success.btn-large(data-toggle='modal', data-target='#create-tab-modal') Create a Tab
+
+  .modal.fade#create-tab-modal(tabindex='-1', role='dialog', aria-labelledby='create-tab-modal', aria-hidden='true')
+    .modal-dialog
+      .modal-content
+        .modal-header
+          button.close(type='button', data-dismiss='modal', aria-hidden="true") &times;
+          h4.modal-title Create Tab
+        .modal-body
+          form(role='form', method='POST', action='/tabs')
+            .form-group
+              label(for='name') Name
+              input.form-control(type='text', name='name', placeholder='Give me a name', autofocus, required)
+        .modal-footer
+          button.btn.btn-default(data-dismiss='modal') Cancel
+          button.btn.btn-primary(type='submit') Create
+
+  script.
+    requirejs(['require', 'jquery', 'knockout', 'home/index'], function(require) {
+      var $ = require('jquery');
+      var ko = require('knockout');
+      var IndexViewModel = require('home/index');
+      $(function() {
+        var vm = new IndexViewModel();
+        ko.applyBindings(vm);
+        vm.fetch();
+      });
+    });
