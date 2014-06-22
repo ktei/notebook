@@ -13,6 +13,7 @@
 		"less-middleware" : "*",
 		"mongodb": "*",
 		"express-flash" : "*",
-		"string" : "*"
+		"string" : "*",
+		"extend": "*"
 	}
 }

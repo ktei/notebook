@@ -1,6 +1,7 @@
 var items = require('../repositories/item');
 var S = require('string');
 var ObjectId = require('mongodb').ObjectID;
+var extend = require('extend');
 
 exports.fetchForTab = function(req, res) {
   items.findByTabId(req.db,
@@ -18,7 +19,8 @@ exports.fetchForTab = function(req, res) {
 exports.create = function(req, res) {
   res.render('item/create', {
     title: '',
-    content: ''
+    content: '',
+    backUrl: '/tabs/' + req.params.tabId
   });
 };
 
@@ -48,7 +50,10 @@ exports.edit = function(req, res) {
     if (err) {
       throw err;
     } else {
-      res.render('item/edit', item);
+      res.render('item/edit', extend(item, {
+          backUrl: '/tabs/' + req.params.tabId
+        })
+      );
     }
   });
 };

@@ -8,4 +8,6 @@ form(role='form', method='POST')
     textarea.form-control.item(id='content', name='content',
       data-provide="markdown", required) #{content}
   .form-group
+    a.btn.btn-default(href='#{backUrl}') Cancel
+    &nbsp;
     button.btn.btn-primary(type='submit') Save
