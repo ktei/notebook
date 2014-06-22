@@ -9,6 +9,9 @@
         "requirejs": "~2.1.8",
         "jquery": "1.10.*",
         "knockoutjs": "*",
-        "bootstrap": "~3.*"
+        "bootstrap": "~3.*",
+        "markdown": "*",
+        "to-markdown": "*",
+        "bootstrap-markdown": "*"
     }
 }

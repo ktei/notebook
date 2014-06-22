@@ -1,12 +1,16 @@
 requirejs.config({
 	paths: {
-		'home': '../javascripts/home',
-		'jquery': '../jquery/jquery',
-		'knockout': '../knockoutjs/dist/knockout',
-		'bootstrap': '../bootstrap/dist/js/bootstrap.min'
+		'jquery': '/jquery/jquery',
+		'knockout': '/knockoutjs/dist/knockout',
+		'bootstrap': '/bootstrap/dist/js/bootstrap.min',
+		'markdown': '/markdown/lib/markdown',
+		'to-markdown': '/to-markdown/src/to-markdown',
+		'bootstrap-markdown': '/bootstrap-markdown/js/bootstrap-markdown',
+		'home': '/javascripts/home'
 	},
     shim: {
-    	'bootstrap': ['jquery']
+    	'bootstrap': ['jquery'],
+			'bootstrap-markdown': ['markdown', 'to-markdown']
     }
 });
 

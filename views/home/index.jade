@@ -9,9 +9,14 @@ block content
       ul.nav.nav-tabs(data-bind='foreach: tabs')
         li(data-bind='css: { active: active() }')
           a(href='#', data-bind='text: name, click: $parent.activate')
-      br
-      .list-group(data-bind='foreach: items')
-        a.list-group-item(href='#', data-bind='text: name')
+      div(style='padding: 15px 10px')
+        a.btn.btn-primary(href='#', data-bind='click: addItem') + Item
+        br
+        br
+        .list-group(data-bind='foreach: items')
+          a.list-group-item(href='#')
+            h4.list-group-item-heading(data-bind='text: title')
+            p.list-group-item-text(data-bind='html: html')
 
     .panel.panel-info(data-bind='visible: tabs().length == 0', style='display:none')
       .panel-heading
@@ -44,7 +49,7 @@ block content
       var ko = require('knockout');
       var IndexViewModel = require('home/index');
       $(function() {
-        var vm = new IndexViewModel();
+        var vm = new IndexViewModel('#{activeTabId}');
         ko.applyBindings(vm);
         vm.fetch();
       });

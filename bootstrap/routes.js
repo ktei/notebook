@@ -6,9 +6,13 @@ var home = require('../controllers/home')
 
 exports.setup = function(app) {
 	app.get('/', restrict, home.index);
+	app.get('/tabs/:id', restrict, home.index);
 	app.post('/tabs', restrict, tab.store);
+	app.get('/tabs/:id/items/create', restrict, item.create);
+	app.post('/tabs/:id/items/create', restrict, item.store);
 	app.get('/api/tabs', restrict, tab.fetchAll);
-	app.get('/api/tabs/:id/items', restrict, item.fetchForTab)
+	app.get('/api/tabs/:id/items', restrict, item.fetchForTab);
+
 
 	app.get('/folders/:id', restrict, folder.show);
 	app.get('/folders/create', restrict, folder.create);

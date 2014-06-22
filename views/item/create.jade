@@ -1,0 +1,18 @@
+extends ../layout
+
+block content
+  h1 Create Item
+  form(role='form', method='POST')
+    .form-group
+      label(for='title') Title
+      input.form-control(type='text', id='title', name='title', placeholder='Title', autofocus, required)
+    .form-group
+      label(for='content') Content
+      textarea.form-control.item(id='content', name='content', data-provide="markdown", required)
+    .form-group
+      button.btn.btn-primary(type='submit') Create
+
+  script.
+    requirejs(['require', 'jquery', 'bootstrap-markdown'], function(require) {
+
+    });

@@ -1,4 +1,5 @@
 @import '../bower_components/bootstrap/less/bootstrap.less';
+@import '../bower_components/bootstrap-markdown/less/bootstrap-markdown.less';
 
 body {
 	padding-top: 70px;
@@ -35,5 +36,12 @@ form.login {
 		margin-bottom: 10px;
 		border-top-left-radius: 0;
 		border-top-right-radius: 0;
+	}
+}
+
+textarea {
+	&.item {
+		.resizable(vertical);
+		min-height: 200px;
 	}
 }

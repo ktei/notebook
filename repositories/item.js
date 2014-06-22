@@ -1,14 +1,18 @@
+var ObjectId = require('mongodb').ObjectID;
+
 exports.findByTabId = function(db, tabId, callback) {
-  callback(null, []);
+  var items = db.collection('items');
+  items.ensureIndex('tab_id', function() {
+    items.find({ tab_id: new ObjectId(tabId) })
+      .toArray(function(err, items) {
+        callback(err, items);
+      });
+  })
 };
 
-exports.insert = function(db, callback) {
+exports.insert = function(db, params, callback) {
   var items = db.collection('items');
-  items.insert({
-    tab_id: params.tabId,
-    title: params.title,
-    content: params.content
-  }, function(err, result) {
+  items.insert(params, function(err, result) {
     if (callback) {
       callback(err, result);
     }

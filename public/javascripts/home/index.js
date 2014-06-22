@@ -1,4 +1,4 @@
-define(['require', 'jquery', 'knockout'], function(require) {
+define(['require', 'jquery', 'knockout', 'markdown'], function(require) {
   var $ = require('jquery');
   var ko = require('knockout');
 
@@ -20,10 +20,14 @@ define(['require', 'jquery', 'knockout'], function(require) {
     this.tabs = ko.observableArray();
     this.status = ko.observable('idle');
     this.items = ko.observableArray();
+    this.activeTab = null;
     this._loadItems = function(items) {
       self.items.removeAll();
       ko.utils.arrayForEach(items, function(item) {
-        self.tabs.push(item);
+        self.items.push($.extend(item, {
+            html: markdown.toHTML(item.content)
+          })
+        );
       });
     };
     this.activate = function(tab) {
@@ -33,13 +37,21 @@ define(['require', 'jquery', 'knockout'], function(require) {
         });
       }
       tab.activate();
-      $.getJSON('api/tabs/' + tab.id + '/items', function(res) {
-        if (res.success) {
-          self._loadItems(res.data);
-        } else {
-          alert(res.message);
-        }
-      });
+      if (!tab.isButton) {
+        self.activeTab = tab;
+        $.getJSON('/api/tabs/' + tab.id + '/items', function(res) {
+          if (res.success) {
+            self._loadItems(res.data);
+          } else {
+            alert(res.message);
+          }
+        });
+      }
+    };
+    this.addItem = function() {
+      if (self.activeTab) {
+        window.location.href = '/tabs/' + self.activeTab.id + '/items/create';
+      }
     };
     this._findTabById = function(id) {
       var tabs = self.tabs();
@@ -79,7 +91,7 @@ define(['require', 'jquery', 'knockout'], function(require) {
     };
     this.fetch = function() {
       self.status('loading');
-      $.getJSON('api/tabs', function(res) {
+      $.getJSON('/api/tabs', function(res) {
         if (res.success) {
           self._load(res.data);
         } else {
