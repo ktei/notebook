@@ -17,8 +17,12 @@ block content
           include ../shared/spinner
         div(data-bind="visible: status() == 'idle'", style='display:none')
           .list-group(data-bind='foreach: items')
-            a.list-group-item(href='#', data-bind='click: edit')
+            .list-group-item
               h4.list-group-item-heading(data-bind='text: title')
+              a(href='#', data-bind='click: edit')
+                span.glyphicon.glyphicon-edit &nbsp;
+              a(href='#', data-bind='click: trash')
+                span.glyphicon.glyphicon-trash
               p.list-group-item-text(data-bind='html: html')
 
     .panel.panel-info(data-bind='visible: tabs().length == 0', style='display:none')

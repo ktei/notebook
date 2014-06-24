@@ -12,6 +12,7 @@
         "bootstrap": "~3.*",
         "markdown": "*",
         "to-markdown": "*",
-        "bootstrap-markdown": "*"
+        "bootstrap-markdown": "*",
+        "bootbox": "*"
     }
 }

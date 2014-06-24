@@ -1,6 +1,7 @@
-define(['require', 'jquery', 'knockout', 'markdown'], function(require) {
+define(['require', 'jquery', 'knockout', 'markdown', 'bootbox'], function(require) {
   var $ = require('jquery');
   var ko = require('knockout');
+  var bootbox = require('bootbox');
 
   var TabViewModel = function(tab) {
     var self = this;
@@ -28,6 +29,13 @@ define(['require', 'jquery', 'knockout', 'markdown'], function(require) {
             html: markdown.toHTML(item.content),
             edit: function() {
               window.location.href = '/tabs/' + self.activeTab.id + '/items/' + item._id;
+            },
+            trash: function() {
+              bootbox.confirm('Are you sure to delete this?', function(result) {
+                if (result) {
+                  alert('deleting...');
+                }
+              });
             }
           })
         );

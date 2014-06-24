@@ -6,11 +6,13 @@ requirejs.config({
 		'markdown': '/markdown/lib/markdown',
 		'to-markdown': '/to-markdown/src/to-markdown',
 		'bootstrap-markdown': '/bootstrap-markdown/js/bootstrap-markdown',
+		'bootbox': '/bootbox/bootbox',
 		'home': '/javascripts/home'
 	},
     shim: {
     	'bootstrap': ['jquery'],
-			'bootstrap-markdown': ['markdown', 'to-markdown']
+			'bootstrap-markdown': ['markdown', 'to-markdown'],
+			'bootbox': ['bootstrap']
     }
 });
 
