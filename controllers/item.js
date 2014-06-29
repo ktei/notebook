@@ -95,3 +95,13 @@ function validateItem(req) {
   }
   return '';
 }
+
+exports.delete = function(req, res) {
+  items.delete(req.db, req.params.id, function(err, result) {
+    if (err) {
+      throw err;
+    } else {
+      res.redirect('/tabs/' + req.params.tabId);
+    }
+  });
+};

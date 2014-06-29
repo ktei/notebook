@@ -4,7 +4,7 @@ var ObjectId = require('mongodb').ObjectID;
 var tabs = require('../repositories/tab');
 
 exports.store = function(req, res, next) {
-  var err = validateStore(req);
+  var err = validateTab(req);
   if (err) {
     req.flash('error', err);
     res.render('home/index');
@@ -15,14 +15,15 @@ exports.store = function(req, res, next) {
         if (err) {
           throw err;
         } else {
-          res.redirect('/');
+          console.log(result);
+          res.redirect('/tabs/' + result[0]._id);
         }
       }
     );
   }
 };
 
-exports.fetchAll = function(req, res, next) {
+exports.fetchAll = function(req, res) {
   tabs.findAll(req.db, function(err, items) {
     if (err) {
       res.jsonError();
@@ -32,10 +33,20 @@ exports.fetchAll = function(req, res, next) {
   });
 };
 
-function validateStore(req) {
+function validateTab(req) {
   name = S(req.body.name).trim().s;
   if (!name) {
     return 'Folder name cannot be empty.';
   }
   return '';
 }
+
+exports.delete = function(req, res) {
+  tabs.delete(req.db, req.params.id, function(err, result) {
+    if (err) {
+      throw err;
+    } else {
+      res.redirect('/');
+    }
+  })
+};

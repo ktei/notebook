@@ -10,7 +10,17 @@ block content
         li(data-bind='css: { active: active() }')
           a(href='#', data-bind='text: name, click: $parent.activate')
       div(style='padding: 15px 10px')
-        a.btn.btn-primary(href='#', data-bind='click: addItem') + Item
+        a.btn.btn-primary(href='#', data-bind='click: addItem')
+          span.glyphicon.glyphicon-plus
+          |&nbsp;Add Item
+        &nbsp;
+        a.btn.btn-default(href='#')
+          span.glyphicon.glyphicon-edit
+          |&nbsp;Edit Tab
+        &nbsp;
+        a.btn.btn-danger(href='#', data-bind='click: trash')
+          span.glyphicon.glyphicon-trash
+          |&nbsp;Delete Tab
         br
         br
         div(data-bind="visible: status() == 'loading items'", style='display:none')
@@ -38,17 +48,17 @@ block content
   .modal.fade#create-tab-modal(tabindex='-1', role='dialog', aria-labelledby='create-tab-modal', aria-hidden='true')
     .modal-dialog
       .modal-content
-        .modal-header
-          button.close(type='button', data-dismiss='modal', aria-hidden="true") &times;
-          h4.modal-title Create Tab
-        .modal-body
-          form(role='form', method='POST', action='/tabs')
+        form(role='form', method='POST', action='/tabs')
+          .modal-header
+            button.close(type='button', data-dismiss='modal', aria-hidden="true") &times;
+            h4.modal-title Create Tab
+          .modal-body
             .form-group
               label(for='name') Name
               input.form-control(type='text', name='name', placeholder='Give a name', autofocus, required)
-        .modal-footer
-          button.btn.btn-default(data-dismiss='modal') Cancel
-          button.btn.btn-primary(type='submit') Create
+          .modal-footer
+            button.btn.btn-default(data-dismiss='modal') Cancel
+            button.btn.btn-primary(type='submit') Create
 
   script.
     requirejs(['require', 'jquery', 'knockout', 'home/index'], function(require) {

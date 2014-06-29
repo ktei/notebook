@@ -42,3 +42,12 @@ exports.update = function(db, params, callback) {
     }
   })
 };
+
+exports.delete = function(db, id, callback) {
+  var items = db.collection('items');
+  items.remove({ _id: new ObjectId(id) }, function(err, result) {
+    if (callback) {
+      callback(err, result);
+    }
+  });
+};

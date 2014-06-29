@@ -33,7 +33,7 @@ define(['require', 'jquery', 'knockout', 'markdown', 'bootbox'], function(requir
             trash: function() {
               bootbox.confirm('Are you sure to delete this?', function(result) {
                 if (result) {
-                  alert('deleting...');
+                  window.location.href = '/tabs/' + self.activeTab.id + '/items/' + item._id + '/delete';
                 }
               });
             }
@@ -122,6 +122,13 @@ define(['require', 'jquery', 'knockout', 'markdown', 'bootbox'], function(requir
       .always(function() {
         self.status('idle');
       })
+    };
+    this.trash = function() {
+      bootbox.confirm('Are you sure to delete this tab? All its items will be deleted as well.', function(result) {
+        if (result) {
+          window.location.href = '/tabs/' + self.activeTab.id + '/delete';
+        }
+      });
     };
   };
 });
